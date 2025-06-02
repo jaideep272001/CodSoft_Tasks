@@ -3,38 +3,52 @@
 #include<ctime>
 using namespace std;
 
-int main(){
-    srand(time(0));
-    int random_number = rand() % 1000 + 1;
-    int input_number;
-    jump:
-    cout<<"Enter Your Number : ";
-    cin>>input_number;
+class numberGame{
+        int input_number;
+    
+    public:
 
-        if(random_number == input_number){
-            cout<<"YOU GUESSED THE CORRECT NUMBER !"<<endl;
+        int input_values(){
+            cout<<"Enter Your Number : ";
+            cin>>input_number;
             return 0;
         }
-
-    // Greater Digit Code
-        else if(input_number*10 < random_number){
-            cout<<"GUESS A MUCH BIGGER NUMBER"<<endl;
-            goto jump;
-        }
-        else if(input_number < random_number){
-            cout<<"GUESS A BIGGER NUMBER"<<endl;
-            goto jump;
-        }
+    
+        int gameOperations(int &random_number){
         
-    // Smaller Digits Code
-        else if(input_number*10 > random_number){
-            cout<<"GUESS A MUCH SMALLER NUMBER"<<endl;
-            goto jump;
+            while(random_number!=input_number){
+                if(input_number*5 < random_number){
+                    cout<<"GUESS A MUCH BIGGER NUMBER"<<endl;
+                    input_values();
+                }
+
+                else if(input_number < random_number){
+                    cout<<"GUESS A BIGGER NUMBER"<<endl;
+                    input_values();
+                }
+
+                else if(input_number > random_number*5){
+                    cout<<"GUESS A MUCH SMALLER NUMBER"<<endl;
+                    input_values();
+                }
+
+                else if(input_number > random_number){
+                    cout<<"GUESS A SMALLER NUMBER"<<endl;
+                    input_values();
+                }
+            }   
+                cout<<"YOU GUESSED THE CORRECT NUMBER !"<<endl;
+                return 0;
         }
-        else if(input_number < random_number){
-            cout<<"GUESS A BIGGER NUMBER"<<endl;
-            goto jump;
-        }
+ 
+    };
+
+int main(){
+    numberGame game;
+    srand(time(0));
+    int random_number = rand() % 1000 + 1;
+    game.input_values();
+    game.gameOperations(random_number);
     return 0;
 
 }
